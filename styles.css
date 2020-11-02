@@ -55,7 +55,8 @@ body {
 
 .video-container .controls button.help svg,
 .video-container .controls button.list svg,
-.video-container .controls button.full-screen svg {
+.video-container .controls button.full-screen svg,
+.video-container .controls button.cast svg {
   fill: none;
 }
 
