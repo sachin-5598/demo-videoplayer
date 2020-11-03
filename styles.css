@@ -31,6 +31,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.9));
+  color: white;
 }
 
 .video-container .controls-container .progress-controls {
@@ -41,7 +42,7 @@ body {
 }
 
 .video-container .controls-container .progress-controls .progress-bar {
-  width: 95%;
+  width: 90%;
   height: 1vw;
   max-height: 10px;
   background: #5B5B5B;
@@ -80,6 +81,26 @@ body {
   height: 5vw;
   min-width: 50px;
   min-height: 50px;
+  margin: 0px 1vw;
+  /* opacity: 0.4; */
+  transform: scale(0.9);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.video-container .controls-container .controls button.play,
+.video-container .controls-container .controls button.rewind,
+.video-container .controls-container .controls button.fast-forward,
+.video-container .controls-container .controls button.full-screen {
+  opacity: 0.4;
+}
+
+.video-container .controls-container .controls button:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.video-container .controls-container .progress-controls .time-remaining {
   margin: 0px 1vw;
 }
 
