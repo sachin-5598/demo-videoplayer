@@ -5,6 +5,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background: black;
+  font-family: 'Rubik', sans-serif;
 }
 
 .video-container {
@@ -20,18 +21,57 @@ body {
   height: 100%;
 }
 
-.video-container .controls {
+.video-container .controls-container {
   bottom: 0px;
   position: fixed;
+  width: 100%;
+  /* so that the background gradient extends above the progress controls */
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.9));
+}
+
+.video-container .controls-container .progress-controls {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container .controls-container .progress-controls .progress-bar {
+  width: 95%;
+  height: 1vw;
+  max-height: 10px;
+  background: #5B5B5B;
+  display: flex;
+  align-items: center;
+}
+
+.video-container .controls-container .progress-controls .progress-bar .watched-bar {
+  background: #E31221;
+  height: 110%;
+  width: 50%;
+}
+
+.video-container .controls-container .progress-controls .progress-bar .playhead {
+  background: #E31221;
+  height: 3vw;
+  width: 3vw;
+  max-height: 25px;
+  max-width: 25px;
+  border-radius: 50%;
+}
+
+.video-container .controls-container .controls {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4vmin;
-  background: rgba(0, 0, 0, 0.5);
 }
 
-.video-container .controls button {
+.video-container .controls-container .controls button {
   background: none;
   outline: none;
   box-shadow: none;
@@ -43,7 +83,7 @@ body {
   margin: 0px 1vw;
 }
 
-.video-container .controls button svg {
+.video-container .controls-container .controls button svg {
   fill: white;
   stroke: white;
   stroke-width: 2;
@@ -53,15 +93,24 @@ body {
   height: 100%;
 }
 
-.video-container .controls button.help svg,
-.video-container .controls button.list svg,
-.video-container .controls button.full-screen svg,
-.video-container .controls button.cast svg {
+.video-container .controls-container .controls button.help svg,
+.video-container .controls-container .controls button.list svg,
+.video-container .controls-container .controls button.full-screen svg,
+.video-container .controls-container .controls button.volume svg path,
+.video-container .controls-container .controls button.cast svg {
   fill: none;
 }
 
-.video-container .controls .title {
-  font-family: sans-serif;
+.video-container .controls-container .controls button.rewind svg,
+.video-container .controls-container .controls button.fast-forward svg {
+  stroke: none;
+}
+
+.video-container .controls-container .controls button.captions svg {
+  transform: rotateY(180deg);
+}
+
+.video-container .controls-container .controls .title {
   font-size: 2vw;
   width: 100%; /* take all the space left after buttons*/
   height: 100%;
@@ -70,13 +119,13 @@ body {
   justify-content: flex-start;
 }
 
-.video-container .controls .title .series {
+.video-container .controls-container .controls .title .series {
   color: #FEFEFE;
   font-weight: bold;
   font-size: 1em;
 }
 
-.video-container .controls .title .episode {
+.video-container .controls-container .controls .title .episode {
   color: #A1A1A1;
   font-size: 0.75em;
   padding-left: 1vw;
