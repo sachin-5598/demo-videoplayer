@@ -84,7 +84,9 @@ body {
   margin: 0px 1vw;
   /* opacity: 0.4; */
   transform: scale(0.9);
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.3s ease-in-out; */
+  transition: opacity 0.1s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }
 
@@ -99,6 +101,11 @@ body {
   opacity: 1;
   transform: scale(1.2);
 }
+
+.video-container .controls-container .controls button:active {
+  opacity: 0.4;
+}
+
 
 .video-container .controls-container .progress-controls .time-remaining {
   margin: 0px 1vw;
