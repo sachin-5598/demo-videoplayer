@@ -93,7 +93,7 @@ body {
   cursor: pointer;
 }
 
-.video-container .controls-container .controls button.play,
+.video-container .controls-container .controls button.play-pause,
 .video-container .controls-container .controls button.rewind,
 .video-container .controls-container .controls button.fast-forward,
 .video-container .controls-container .controls button.full-screen {
@@ -113,7 +113,7 @@ body {
 .video-container .controls-container .progress-controls .time-remaining {
   margin: 0px 1vw;
   width: 4vw;
-  font-size: 1.3vw;
+  /* font-size: 1.3vw; */
 }
 
 .video-container .controls-container .controls button svg {

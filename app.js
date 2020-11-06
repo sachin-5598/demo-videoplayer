@@ -1,33 +1,76 @@
 const videoContainer = document.querySelector('.video-container');
 const video = document.querySelector('.video-container video');
 
-const playpauseButton = document.querySelector('.video-container .controls-container .controls button.play');
+const playpauseButton = document.querySelector('.video-container .controls-container .controls button.play-pause');
 const rewindButton = document.querySelector('.video-container .controls-container .controls button.rewind');
 const fastForwardButton = document.querySelector('.video-container .controls-container .controls button.fast-forward');
 const volumeButton = document.querySelector('.video-container .controls-container .controls button.volume');
 const fullscreenButton = document.querySelector('.video-container .controls-container .controls button.full-screen');
+const playButton = playpauseButton.querySelector('.playing');
+const pauseButton = playpauseButton.querySelector('.paused');
+const fullVolumeButton = volumeButton.querySelector('.full-volume');
+const mutedButton = volumeButton.querySelector('.muted');
+const maximizeButton = fullscreenButton.querySelector('.maximize');
+const minimizeButton = fullscreenButton.querySelector('.minimize');
 
 const progressBar = document.querySelector('.video-container .controls-container .progress-controls .progress-bar');
 const watchedBar = document.querySelector('.video-container .controls-container .progress-controls .progress-bar .watched-bar');
 const timeLeft = document.querySelector('.video-container .controls-container .progress-controls .time-remaining')
 
+playButton.style.display = '';
+pauseButton.style.display = 'none';
+mutedButton.style.display = 'none';
+minimizeButton.style.display = 'none';
+
 function playpause() {
   if (video.paused) {
     video.play();
+    playButton.style.display = 'none';
+    pauseButton.style.display = '';
   } else {
     video.pause();
+    playButton.style.display = '';
+    pauseButton.style.display = 'none';
   }
 }
 
 function toggleMute() {
+  if (video.muted) {
+    fullVolumeButton.style.display = '';
+    mutedButton.style.display = 'none';
+  } else {
+    fullVolumeButton.style.display = 'none';
+    mutedButton.style.display = '';
+  }
   video.muted = !video.muted;
 }
 
-document.addEventListener('keydown', (event) => {
+function toggleFullscreen() {
+  // we need to request fullscreen on video-container so that the custom controls dont disappear
+  if (!document.fullscreenElement) {
+    videoContainer.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    maximizeButton.style.display = '';
+    minimizeButton.style.display = 'none';
+  } else {
+    maximizeButton.style.display = 'none';
+    minimizeButton.style.display = '';
+  }
+});
+
+document.addEventListener('keyup', (event) => {
   if (event.code === 'Space') {
     playpause();
   } else if (event.code === 'KeyM') {
     toggleMute();
+  } else if (event.code === 'KeyM') {
+    toggleFullscreen();
   }
 });
 
@@ -45,14 +88,7 @@ volumeButton.addEventListener('click', () => {
   toggleMute()
 });
 
-fullscreenButton.addEventListener('click', () => {
-  // we need to request fullscreen on video-container so that the custom controls dont disappear
-  if (!document.fullscreenElement) {
-    videoContainer.requestFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-});
+fullscreenButton.addEventListener('click', toggleFullscreen);
 
 video.addEventListener('timeupdate', () => {
   watchedBar.style.width = (video.currentTime / video.duration) * 100 + '%';
