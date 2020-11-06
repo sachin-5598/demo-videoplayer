@@ -7,13 +7,30 @@ const fastForwardButton = document.querySelector('.video-container .controls-con
 const volumeButton = document.querySelector('.video-container .controls-container .controls button.volume');
 const fullscreenButton = document.querySelector('.video-container .controls-container .controls button.full-screen');
 
-playpauseButton.addEventListener('click', () => {
+const watchedBar = document.querySelector('.video-container .controls-container .progress-controls .progress-bar .watched-bar');
+const timeLeft = document.querySelector('.video-container .controls-container .progress-controls .time-remaining')
+
+function playpause() {
   if (video.paused) {
     video.play();
   } else {
     video.pause();
   }
+}
+
+function toggleMute() {
+  video.muted = !video.muted;
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.code === 'Space') {
+    playpause();
+  } else if (event.code === 'KeyM') {
+    toggleMute();
+  }
 });
+
+playpauseButton.addEventListener('click', playpause);
 
 rewindButton.addEventListener('click', () => {
   video.currentTime -= 10;
@@ -24,7 +41,7 @@ fastForwardButton.addEventListener('click', () => {
 });
 
 volumeButton.addEventListener('click', () => {
-  video.muted = !video.muted;
+  toggleMute()
 });
 
 fullscreenButton.addEventListener('click', () => {
@@ -34,4 +51,13 @@ fullscreenButton.addEventListener('click', () => {
   } else {
     document.exitFullscreen();
   }
+});
+
+video.addEventListener('timeupdate', () => {
+  watchedBar.style.width = (video.currentTime / video.duration) * 100 + '%';
+  const totalSecondsRemaining = video.duration - video.currentTime;
+  const hoursRemaining = Math.floor(totalSecondsRemaining / (60 * 60));
+  const minutesRemaining = Math.floor((totalSecondsRemaining - (hoursRemaining * 60 * 60)) / 60);
+  const secondsRemaining = Math.floor(totalSecondsRemaining - (hoursRemaining * 60 * 60) - (minutesRemaining * 60));
+  timeLeft.textContent = `${hoursRemaining.toString().padStart(2, '0')}:${minutesRemaining.toString().padStart(2, '0')}:${secondsRemaining.toString().padStart(2, '0')}`;
 });
