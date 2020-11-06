@@ -7,6 +7,7 @@ const fastForwardButton = document.querySelector('.video-container .controls-con
 const volumeButton = document.querySelector('.video-container .controls-container .controls button.volume');
 const fullscreenButton = document.querySelector('.video-container .controls-container .controls button.full-screen');
 
+const progressBar = document.querySelector('.video-container .controls-container .progress-controls .progress-bar');
 const watchedBar = document.querySelector('.video-container .controls-container .progress-controls .progress-bar .watched-bar');
 const timeLeft = document.querySelector('.video-container .controls-container .progress-controls .time-remaining')
 
@@ -60,4 +61,9 @@ video.addEventListener('timeupdate', () => {
   const minutesRemaining = Math.floor((totalSecondsRemaining - (hoursRemaining * 60 * 60)) / 60);
   const secondsRemaining = Math.floor(totalSecondsRemaining - (hoursRemaining * 60 * 60) - (minutesRemaining * 60));
   timeLeft.textContent = `${hoursRemaining.toString().padStart(2, '0')}:${minutesRemaining.toString().padStart(2, '0')}:${secondsRemaining.toString().padStart(2, '0')}`;
+});
+
+progressBar.addEventListener('click', (event) => {
+  const pos = (event.pageX - (progressBar.offsetLeft + progressBar.offsetParent.offsetLeft)) / progressBar.offsetWidth;
+  video.currentTime = pos * video.duration;
 });

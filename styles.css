@@ -44,17 +44,18 @@ body {
 .video-container .controls-container .progress-controls .progress-bar {
   width: 90vw;
   height: 1vw;
-  max-height: 10px;
+  max-height: 7px;
   background: #5B5B5B;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .video-container .controls-container .progress-controls .progress-bar .watched-bar {
   background: #E31221;
   height: 110%;
   width: 0px;
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .video-container .controls-container .progress-controls .progress-bar .playhead {
@@ -112,6 +113,7 @@ body {
 .video-container .controls-container .progress-controls .time-remaining {
   margin: 0px 1vw;
   width: 4vw;
+  font-size: 1.3vw;
 }
 
 .video-container .controls-container .controls button svg {
