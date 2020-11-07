@@ -1,5 +1,6 @@
 const videoContainer = document.querySelector('.video-container');
 const video = document.querySelector('.video-container video');
+const controlsContainer = document.querySelector('.video-container .controls-container');
 
 const playpauseButton = document.querySelector('.video-container .controls-container .controls button.play-pause');
 const rewindButton = document.querySelector('.video-container .controls-container .controls button.rewind');
@@ -17,10 +18,25 @@ const progressBar = document.querySelector('.video-container .controls-container
 const watchedBar = document.querySelector('.video-container .controls-container .progress-controls .progress-bar .watched-bar');
 const timeLeft = document.querySelector('.video-container .controls-container .progress-controls .time-remaining')
 
+let controlsTimeout;
+
+controlsContainer.style.opacity = '0';
 playButton.style.display = '';
 pauseButton.style.display = 'none';
 mutedButton.style.display = 'none';
 minimizeButton.style.display = 'none';
+
+function displayControls() {
+  controlsContainer.style.opacity = '1';
+  document.body.style.cursor = 'initial';
+  if(controlsTimeout) {
+    clearTimeout(controlsTimeout);
+  }
+  controlsTimeout = setTimeout(() => {
+    controlsContainer.style.opacity = '0';
+    document.body.style.cursor = 'none';
+  }, 5000);
+}
 
 function playpause() {
   if (video.paused) {
@@ -69,9 +85,10 @@ document.addEventListener('keyup', (event) => {
     playpause();
   } else if (event.code === 'KeyM') {
     toggleMute();
-  } else if (event.code === 'KeyM') {
+  } else if (event.code === 'KeyF') {
     toggleFullscreen();
   }
+  displayControls();
 });
 
 playpauseButton.addEventListener('click', playpause);
@@ -103,3 +120,5 @@ progressBar.addEventListener('click', (event) => {
   const pos = (event.pageX - (progressBar.offsetLeft + progressBar.offsetParent.offsetLeft)) / progressBar.offsetWidth;
   video.currentTime = pos * video.duration;
 });
+
+document.addEventListener('mousemove', displayControls);
